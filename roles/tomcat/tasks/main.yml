@@ -9,4 +9,4 @@
   service: name=tomcat state=started enabled=yes
 
 - name: copy jpetstore.xml
-  copy: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat/Cataline/localhost/jpetstore.xml
+  templates: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat/Cataline/localhost/jpetstore.xml
