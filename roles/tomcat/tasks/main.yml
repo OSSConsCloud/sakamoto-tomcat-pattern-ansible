@@ -1,0 +1,12 @@
+---
+- name: tomcat install
+  yum: name=tomcat state=latest
+
+- name: application deploy
+  get_url: url="https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war" dest=/var/lib/tomcat/webapps/
+
+- name: tomcat start
+  service: name=tomcat state=started enabled=yes
+
+- name: copy jpetstore.xml
+  copy: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat/Cataline/localhost/jpetstore.xml

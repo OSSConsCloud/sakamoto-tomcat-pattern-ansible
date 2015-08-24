@@ -1,0 +1,5 @@
+---
+  vars:
+    db_name: application
+    db_user: sakaro
+    db_pass: sakaro
