@@ -2,4 +2,4 @@
 - hosts: webserver
   sudo: yes
   roles:
-  	- apache
+    - apache
