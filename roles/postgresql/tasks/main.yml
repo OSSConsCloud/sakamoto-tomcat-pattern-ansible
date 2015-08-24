@@ -28,9 +28,12 @@
   sudo_user: "{{db_user}}"
   get_url: url="https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql" dest=./
 
-- name: deploy database
+- name: create database
   sudo_user: "{{db_user}}"
   postgresql_db:
     name: "{{db_name}}"
     owner: "{{db_user}}"
+
+- name: deploy database
+  sudo_user: "{{db_user}}"
   shell: "psql -U {{db_user}} -d {{db_name}} -f jpetstore_postgres.sql"
