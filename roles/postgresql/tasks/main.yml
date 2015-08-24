@@ -15,7 +15,7 @@
   service: name=postgresql state=started enabled=yes
 
 - name: create postgres user
-  postgres_user:
+  postgresql_user:
     name: "{{ db_user }}"
     password: "{{ db_pass }}"
     state: present
@@ -24,10 +24,12 @@
   sudo_user: postgres
   sudo: yes
 
-- name: deploy databese
-  sudo: yes
+- name: get jpetstore_postgres.sql
   sudo_user: "{{db_user}}"
   get_url: url="https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql" dest=./
+
+- name: deploy database
+  sudo_user: "{{db_user}}"
   postgresql_db:
     name: "{{db_name}}"
     owner: "{{db_user}}"
