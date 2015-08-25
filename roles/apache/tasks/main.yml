@@ -12,7 +12,7 @@
     - gcc
 
 - name: download tomcat-connectors
-  get_url: name="http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz" dest=./
+  get_url: url="http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz" dest=./
 
 - name: tar tomcat-connectors
   command: tar -zxvf tomcat-connectors-1.2.40-src.tar.gz
