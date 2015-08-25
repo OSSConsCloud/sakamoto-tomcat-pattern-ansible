@@ -1,6 +1,8 @@
 ---
-- name: install postgresql
+- name: install pgdg-centos94-9.4-1.noarch.rpm
   yum: name=http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm state=latest
+
+- name: install postgresql and python-psycopg2
   yum: name={{ item }} state=latest
   with_items:
     - postgresql-server
@@ -9,11 +11,11 @@
     - python-psycopg2
 
 - name: count file in the data directory
-  shell: ls /var/lib/pgsql/data
+  command: ls /var/lib/pgsql/data
   register: file_count
 
 - name: postgresql initdb
-  shell: service postgresql initdb
+  command: service postgresql initdb
   when: file_count.stdout_lines|length == 0
 
 - name: start postgresql
@@ -40,4 +42,4 @@
 
 - name: deploy database
   sudo_user: "postgres"
-  shell: "psql -U postgres -d {{ db_name }} -f jpetstore_postgres.sql"
+  command: "psql -U postgres -d {{ db_name }} -f jpetstore_postgres.sql"

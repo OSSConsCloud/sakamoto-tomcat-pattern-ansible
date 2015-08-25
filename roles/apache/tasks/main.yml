@@ -1,3 +1,51 @@
 ---
 - name: install apache
   yum: name=httpd state=latest
+
+- name: start httpd
+  service: name=httpd state=started enable=yes
+
+- name: install httpd-devel gcc
+  yum: name={{ item }} state=latest
+  with_item:
+    - httpd-devel
+    - gcc
+
+- name: download tomcat-connectors
+  get_url: name="http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz" dest=./
+
+- name: tar tomcat-connectors
+  command: tar -zxvf tomcat-connectors-1.2.40-src.tar.gz
+
+- name: configure tomcat-connectors
+  command: ./configure --with-apxs=/usr/bin/apxs chdir=tomcat-connectors-1.2.40-src/native
+
+- name: make tomcat-connectors
+  command: make chdir=tomcat-connectors-1.2.40-src/native
+
+- name: make install tomcat-connectors
+  command: make install chdir=tomcat-connectors-1.2.40-src/native
+
+- name: copy workers.properties template
+  template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf/workers.properties
+
+- name: copy uriworkermap.properties template
+  template: src=../templates/uriworkermap.properties.j2 dest=/etc/httpd/conf/uriworkermap.properties
+
+- name: change timestamp of workers.properties
+  command: touch workers.properties chdir=/etc/httpd/conf/
+
+- name: change timestamp of uriworkermap.properties
+  command: touch uriworkermap.properties chdir=/etc/httpd/conf/
+
+- name: make conf-available directory
+  file: dest=/etc/httpd/conf-available state=directory
+
+- name: make mod-jk.conf file
+  file: path=/etc/httpd/conf-available/mod-jk.conf state=touch owner=centos
+
+- name: link mod-jk.conf file from conf-available to conf-enabled
+  file: src=/etc/httpd/conf-available/mod-jk.conf dest=/etc/httpd/conf-enabled/mod-jk.conf state=link
+
+- name: restart apache
+  service: name=httpd state=restarted
