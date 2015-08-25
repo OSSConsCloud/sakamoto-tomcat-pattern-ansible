@@ -3,7 +3,7 @@
   yum: name=httpd state=latest
 
 - name: start httpd
-  service: name=httpd state=started enable=yes
+  service: name=httpd state=started enabled=yes
 
 - name: install httpd-devel gcc
   yum: name={{ item }} state=latest
