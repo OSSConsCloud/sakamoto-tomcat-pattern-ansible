@@ -23,7 +23,7 @@
   postgresql_user:
     name: "{{ db_user }}"
     password: "{{ db_pass }}"
-    state: latest
+    state: present
     login_user: postgres
     role_attr_flags: CREATEDB,LOGIN,SUPERUSER
   sudo_user: postgres
