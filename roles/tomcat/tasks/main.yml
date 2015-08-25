@@ -5,6 +5,9 @@
 - name: application deploy
   get_url: url="https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war" dest=/var/lib/tomcat/webapps/
 
+- name: get postgresql jdbc driver
+  get_url: url="https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar" dest=/usr/share/tomcat/lib/
+
 - name: tomcat start
   service: name=tomcat state=started enabled=yes
 
