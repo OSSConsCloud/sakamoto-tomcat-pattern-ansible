@@ -7,7 +7,7 @@
 
 - name: install httpd-devel gcc
   yum: name={{ item }} state=latest
-  with_item:
+  with_items:
     - httpd-devel
     - gcc
 
