@@ -41,6 +41,9 @@
 - name: make conf-available directory
   file: dest=/etc/httpd/conf-available state=directory
 
+- name: make conf-enabled directory
+  file: dest=/etc/httpd/conf-enabled state=directory
+
 - name: make mod-jk.conf file
   file: path=/etc/httpd/conf-available/mod-jk.conf state=touch owner=centos
 
