@@ -34,7 +34,7 @@
 
 - name: get jpetstore_postgres.sql
   sudo_user: "postgres"
-  get_url: url="{{ sql_file_url }}}" dest=./
+  get_url: url="{{ sql_file_url }}" dest=./
 
 - name: create database
   sudo_user: "postgres"
