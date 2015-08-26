@@ -20,6 +20,9 @@
   command: service postgresql initdb
   when: file_count.stdout_lines|length == 0
 
+- name: change pg_hba.conf setting
+  template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/data/pg_hba.conf
+
 - name: start postgresql
   service: name=postgresql state=started enabled=yes
 
@@ -44,4 +47,4 @@
 
 - name: deploy database
   sudo_user: "postgres"
-  command: "psql -U postgres -d {{ db_name }} -f jpetstore_postgres.sql"
+  command: "psql -U {{ db_name }} -d {{ db_name }} -f jpetstore_postgres.sql"
