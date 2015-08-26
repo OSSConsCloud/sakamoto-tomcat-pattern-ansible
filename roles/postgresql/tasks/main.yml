@@ -46,7 +46,7 @@
     owner: "{{ db_user }}"
 
 - name: set db_pass
-  command: set PASSWORD={{ db_pass }}
+  shell: set PASSWORD={{ db_pass }}
 
 - name: deploy database
   sudo_user: "postgres"
