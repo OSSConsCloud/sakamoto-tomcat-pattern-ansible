@@ -6,4 +6,4 @@ ap_server_ip:
 war_application_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
 jdbc_driver_url: https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar
 sql_file_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
-tomcat_connector_url: http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz
+tomcat_connectors_url: http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz
