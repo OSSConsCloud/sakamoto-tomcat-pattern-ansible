@@ -53,7 +53,7 @@
   template: src=../templates/.pgpass.j2 dest=~/.pgpass
 
 - name: chmod .pgpass
-  file: src=~/.pgpass mode=600
+  file: path=~/.pgpass mode=600
 
 - name: deploy database
   sudo_user: "postgres"
