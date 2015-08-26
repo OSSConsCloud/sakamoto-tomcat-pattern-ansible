@@ -26,6 +26,9 @@
 - name: start postgresql
   service: name=postgresql state=started enabled=yes
 
+- name: passwd postgres
+  command: passwd postgres
+
 - name: create postgres user
   sudo_user: postgres
   postgresql_user:
@@ -44,6 +47,9 @@
   postgresql_db:
     name: "{{ db_name }}"
     owner: "{{ db_user }}"
+
+- name: set db_pass
+  command: set PASSWORD={{ db_pass }}
 
 - name: deploy database
   sudo_user: "postgres"
