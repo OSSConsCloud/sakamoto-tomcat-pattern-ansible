@@ -45,10 +45,6 @@
     name: "{{ db_name }}"
     owner: "{{ db_user }}"
 
-- name: get hostname
-  command: hostname
-  register: hostname
-
 - name: make .pgpass
   sudo_user: "postgres"
   template: src=../templates/.pgpass.j2 dest=~/.pgpass
