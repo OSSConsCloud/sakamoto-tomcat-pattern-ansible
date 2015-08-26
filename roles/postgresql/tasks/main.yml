@@ -2,15 +2,17 @@
 - name: install pgdg-centos94-9.4-1.noarch.rpm
   yum: name=http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm state=present
 
-- name: install postgresql and python-psycopg2
+- name: install postgresql
   yum: name={{ item }} state=latest
   with_items:
     - postgresql-server
     - postgresql-devel
     - postgresql-contrib
-    - python-psycopg2
 
-- name: count file in the data directory
+- name: install python-psycopg2
+  yum: name=python-psycopg2 state=latest
+
+- name: count file in the var/lib/pgsql/data directory
   command: ls /var/lib/pgsql/data
   register: file_count
 
@@ -22,17 +24,17 @@
   service: name=postgresql state=started enabled=yes
 
 - name: create postgres user
+  sudo_user: postgres
   postgresql_user:
     name: "{{ db_user }}"
     password: "{{ db_pass }}"
     state: present
     login_user: postgres
     role_attr_flags: CREATEDB,LOGIN,SUPERUSER
-  sudo_user: postgres
 
 - name: get jpetstore_postgres.sql
   sudo_user: "postgres"
-  get_url: url="https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql" dest=./
+  get_url: url="{{ sql_file_url }}}" dest=./
 
 - name: create database
   sudo_user: "postgres"

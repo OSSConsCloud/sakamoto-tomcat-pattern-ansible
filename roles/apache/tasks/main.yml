@@ -12,7 +12,7 @@
     - gcc
 
 - name: download tomcat-connectors
-  get_url: url="http://www.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.40-src.tar.gz" dest=./
+  get_url: url="{{ tomcat_connectors_url }}" dest=./
 
 - name: tar tomcat-connectors
   command: tar -zxvf tomcat-connectors-1.2.40-src.tar.gz
@@ -26,13 +26,13 @@
 - name: make install tomcat-connectors
   command: make install chdir=tomcat-connectors-1.2.40-src/native
 
-- name: copy mod_jk.so
+- name: copy mod_jk.so from apache-2.0/ to /etc/httpd/modules/
   command: cp apache-2.0/mod_jk.so /etc/httpd/modules/ chdir=tomcat-connectors-1.2.40-src/native
 
 - name: create workers.properties
   template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf.d/workers.properties
 
-- name: create httpd-jk.conf template
+- name: create httpd-jk.conf
   template: src=../templates/httpd-jk.conf.j2 dest=/etc/httpd/conf.d/httpd-jk.conf
 
 - name: restart apache
