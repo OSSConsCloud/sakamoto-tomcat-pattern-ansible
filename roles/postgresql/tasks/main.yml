@@ -50,7 +50,7 @@
   register: hostname
 
 - name: make .pgpass
-  templates: src=../templates/.pgpass.j2 dest=~/.pgpass
+  template: src=../templates/.pgpass.j2 dest=~/.pgpass
 
 - name: chmod .pgpass
   file: src=~/.pgpass mode=600
