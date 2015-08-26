@@ -50,4 +50,4 @@
 
 - name: deploy database
   sudo_user: "postgres"
-  command: "psql -U {{ db_name }} -d {{ db_name }} -f jpetstore_postgres.sql"
+  command: "psql -U {{ db_usr }} -d {{ db_name }} -f jpetstore_postgres.sql"
