@@ -26,32 +26,14 @@
 - name: make install tomcat-connectors
   command: make install chdir=tomcat-connectors-1.2.40-src/native
 
-- name: copy workers.properties template
-  template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf/workers.properties
+- name: copy mod_jk.so
+  command: cp apache-2.0/mod_jk.so /etc/httpd/modules/ chdir=tomcat-connectors-1.2.40-src/native
 
-- name: copy uriworkermap.properties template
-  template: src=../templates/uriworkermap.properties.j2 dest=/etc/httpd/conf/uriworkermap.properties
+- name: create workers.properties
+  template: src=../templates/workers.properties.j2 dest=/etc/httpd/conf.d/workers.properties
 
-- name: chown workers.properties
-  file: path=/etc/httpd/conf/workers.properties owner=apache
-
-- name: chown uriworkermap.properties
-  file: path=/etc/httpd/conf/uriworkermap.properties owner=apache
-
-- name: make conf-available directory
-  file: dest=/etc/httpd/conf-available state=directory
-
-- name: make conf-enabled directory
-  file: dest=/etc/httpd/conf-enabled state=directory
-
-- name: copy mod-jk.conf file
-  template: src=../templates/mod-jk.conf.j2 dest=/etc/httpd/conf-available/mod-jk.conf 
-
-- name: chown mod-jk.conf
-  file: path=/etc/httpd/conf-available/mod-jk.conf owner=apache
-
-- name: link mod-jk.conf file from conf-available to conf-enabled
-  file: src=/etc/httpd/conf-available/mod-jk.conf dest=/etc/httpd/conf-enabled/mod-jk.conf state=link
+- name: create httpd-jk.conf template
+  template: src=../templates/httpd-jk.conf.j2 dest=/etc/httpd/conf.d/httpd-jk.conf
 
 - name: restart apache
   service: name=httpd state=restarted
