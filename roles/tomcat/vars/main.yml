@@ -1,6 +1,0 @@
----
-  vars:
-    db_name: application
-    db_user: sakaro
-    db_pass: sakar0
-    db_server_ip: 
