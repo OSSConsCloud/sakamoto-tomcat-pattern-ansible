@@ -12,7 +12,7 @@
     replace: 'gpgcheck=0'
 
 - name: install jdk1.7.0
-  yum: name={{ items }} state=latest
+  yum: name={{ item }} state=latest
   with_items:
     - java-1.7.0-openjdk
     - java-1.7.0-openjdk-devel
