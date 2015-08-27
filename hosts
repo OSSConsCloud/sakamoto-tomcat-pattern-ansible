@@ -1,6 +1,5 @@
 [apserver]
-{{ ap_server_ip }}
+
 [webserver]
-{{ web_server_ip }}
+
 [dbserver]
-{{ db_server_ip }}
