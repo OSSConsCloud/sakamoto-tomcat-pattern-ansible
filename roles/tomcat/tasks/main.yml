@@ -8,7 +8,6 @@
 - name: change gpgcheck
   replace: 
     dest: /etc/yum.repos.d/jpackage.repo
-    state: present
     regexp: 'gpgcheck=1'
     replace: 'gpgcheck=0'
 
