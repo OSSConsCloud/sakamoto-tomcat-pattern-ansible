@@ -23,6 +23,12 @@
 - name: change pg_hba.conf setting
   template: src=../templates/pg_hba.conf.j2 dest=/var/lib/pgsql/data/pg_hba.conf
 
+- name: replace listen_addresses
+  replace: 
+    dest: /var/lib/pgsql/data/postgresql.conf
+    regexp: "listen_addresses = 'locahost'"
+    replace: "listen_addresses = '*'"
+
 - name: start postgresql
   service: name=postgresql state=started enabled=yes
 
