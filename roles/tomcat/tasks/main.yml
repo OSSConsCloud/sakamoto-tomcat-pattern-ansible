@@ -11,29 +11,29 @@
     regexp: 'gpgcheck=1'
     replace: 'gpgcheck=0'
 
-- name: install jdk1.7.0
+- name: install jdk
   yum: name={{ item }} state=latest
   with_items:
-    - java-1.7.0-openjdk
-    - java-1.7.0-openjdk-devel
+    - java-{{ java_version }}-openjdk
+    - java-{{ java_version }}-openjdk-devel
 
 - name: tomcat install
-  yum: name=tomcat7 state=latest
+  yum: name=tomcat{{ tomcat_version }} state=latest
 
-- name: chown tomcat7 directory
-  file: path=/usr/share/tomcat7 owner=tomcat
+- name: chown tomcat directory
+  file: path=/usr/share/tomcat{{ tomcat_version }} owner=tomcat
 
 - name: application deploy
-  get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat7/webapps/
+  get_url: url="{{ war_application_url }}" dest=/var/lib/tomcat{{ tomcat_version }}/webapps/
 
 - name: get postgresql jdbc driver
-  get_url: url="{{ jdbc_driver_url }}" dest=/usr/share/tomcat7/lib/
+  get_url: url="{{ jdbc_driver_url }}" dest=/usr/share/tomcat{{ tomcat_version }}/lib/
 
 - name: copy jpetstore.xml
-  template: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat7/Catalina/localhost/jpetstore.xml
+  template: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
 
 - name: chown jpetstore.xml
-  file: path=/etc/tomcat7/Catalina/localhost/jpetstore.xml
+  file: path=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
 
 - name: tomcat start
-  service: name=tomcat7 state=started enabled=yes
+  service: name=tomcat{{ tomcat_version }} state=started enabled=yes

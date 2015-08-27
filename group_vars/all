@@ -5,7 +5,7 @@ db_server_ip:
 ap_server_ip:
 web_server_ip:
 tomcat_version: 7
-postgresql_version: 9.4
+java_version: 1.7.0
 war_application_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore.war
 jdbc_driver_url: https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar
 sql_file_url: https://s3-ap-northeast-1.amazonaws.com/dev.cloudconductor.jp/sources/public/jpetstore_postgres.sql
