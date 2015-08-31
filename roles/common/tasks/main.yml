@@ -1,6 +1,7 @@
 ---
-- include: test_tool.yml
-
 - name: upgrade all packages
   yum: name=* state=latest
+
+- include: test_tool.yml
+
 
