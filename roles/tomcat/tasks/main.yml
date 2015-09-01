@@ -31,9 +31,10 @@
 
 - name: copy jpetstore.xml
   template: src=../templates/jpetstore.xml.j2 dest=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
+  notify: restart tomcat
 
 - name: chown jpetstore.xml
-  file: path=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml
+  file: path=/etc/tomcat{{ tomcat_version }}/Catalina/localhost/jpetstore.xml owner=tomcat 
 
 - name: tomcat start
   service: name=tomcat{{ tomcat_version }} state=started enabled=yes
